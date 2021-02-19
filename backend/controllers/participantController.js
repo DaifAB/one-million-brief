@@ -1,7 +1,12 @@
+require('dotenv').config()
+
 const Participant = require('../models/participant')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const {participantRegisterSchema,participantLoginSchema} = require('./validation/validationSchema')
+const {
+    participantRegisterSchema,
+    participantLoginSchema
+} = require('./validation/validationSchema')
 
 exports.participRegister = async(req, res, next) => {
 
@@ -21,6 +26,7 @@ exports.participRegister = async(req, res, next) => {
     const participant = new Participant({
         full_name : req.body.full_name,
         age : req.body.age,
+        email:req.body.email,
         is_valid : false,
         online : false,
         phone : req.body.phone,
@@ -50,7 +56,7 @@ exports.participLogin = async (req, res, next) => {
     if (!validPass) return res.status(400).send('Invalid password')
 
     //Create and assign a token
-    const token = jwt.sign({_id : participant._id}, process.env.TOKEN_SECRET)
+    const token = jwt.sign({_id : participant._id}, process.env.PARTICIPANT_TOKEN_SECRET)
     res.header('auth-token', token).send(token)
 }
 

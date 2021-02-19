@@ -13,6 +13,10 @@ const participantSchema = new mongoose.Schema({
     type: Boolean
     
   },
+  email : {
+    type : String,
+    required: true
+  },
   online: {
     type: Boolean
     
