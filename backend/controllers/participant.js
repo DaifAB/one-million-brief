@@ -53,3 +53,19 @@ exports.participLogin = async (req, res, next) => {
     const token = jwt.sign({_id : participant._id}, process.env.TOKEN_SECRET)
     res.header('auth-token', token).send(token)
 }
+
+exports.participValidation = async (req,res) => {
+
+    try {
+        participant = await Participant.findById(req.params.id)
+        if (participant == null) {
+
+            return res.status(404).json({message : 'Cannot find participation'})
+        }
+        participant.is_valid = req.body.is_valid
+        const updatedParticipant = await participant.save()
+        res.json(updatedParticipant)
+    } catch (error) {
+        res.status(400).json({message : error.message})
+    }
+}

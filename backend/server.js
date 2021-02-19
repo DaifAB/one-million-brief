@@ -9,6 +9,6 @@ db.on("error", (err) => console.log(err));
 db.once("open", () => console.log("Connected to Database"));
 
 app.use('/participant', require('./routes/participant'))
-app.use('/posts', require('./routes/post'))
+
 
 app.listen(PORT, () => {console.log(`Server running on port ${PORT}`);})
