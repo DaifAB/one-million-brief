@@ -8,6 +8,8 @@ const {
     participantLoginSchema
 } = require('./validation/validationSchema')
 
+const{sendMail,sendSms} = require('./sendNotif/sendNotif')
+
 exports.participRegister = async(req, res, next) => {
 
     //VALIDATE DATA BEFORE SAVE PARTICIPANT
@@ -70,7 +72,11 @@ exports.participValidation = async (req,res) => {
         }
         participant.is_valid = req.body.is_valid
         const updatedParticipant = await participant.save()
+        sendMail(updatedParticipant.email)
+        // sendSms(updatedParticipant.phone)
         res.json(updatedParticipant)
+        
+
     } catch (error) {
         res.status(400).json({message : error.message})
     }
