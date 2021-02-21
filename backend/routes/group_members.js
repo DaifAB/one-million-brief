@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {getAllGroups,addGroup, joinGroup} = require('../controllers/group_members')
+const {getAllGroups,addGroup, joinGroup} = require('../controllers/group_membersController')
 const {verifyParticipToken} = require('../controllers/tokenVerification/verifyToken')
 
 router.route("/getAll").get(getAllGroups)

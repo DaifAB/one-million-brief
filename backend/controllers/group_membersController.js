@@ -54,7 +54,14 @@ exports.joinGroup = async (req,res) => {
 
                 try {
                     const newGroup = await group.save()
-                    res.status(201).json(newGroup)
+
+                    Group.countDocuments({group_code : group_code}, async (err,c)=>{
+                        if(c == 4) {res.send('Game started get your question')}
+                        else {res.send("waiting for other players")}
+
+
+                    })
+
                 } catch (error) {
                     res.status(500).send({message : error.message})
                 }
@@ -62,6 +69,6 @@ exports.joinGroup = async (req,res) => {
                 res.send({message : "Group is Full"})
             }
        })
-   
+
 }
 
