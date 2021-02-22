@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
-const goupMembersSchema = new mongoose.Schema({
+const groupMembersSchema = new mongoose.Schema({
   id_participant: {
     type: mongoose.Types.ObjectId,
-    ref: "participants",
+    ref: "participants"
   },
   group_code: {
     type: Number,
@@ -11,4 +11,4 @@ const goupMembersSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("GroupMemebers", goupMembersSchema);
+module.exports = mongoose.model("GroupMembers", groupMembersSchema);

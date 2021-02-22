@@ -5,8 +5,7 @@ exports.addRound = async (req,res) => {
     const round = new Round({
         id_group_members : req.body.id_group_members,
         id_question : req.body.id_question,
-        id_question_token : req.body.id_question_token,
-        score : req.body.score
+        id_question_token : req.body.id_question_token
 
     })
 

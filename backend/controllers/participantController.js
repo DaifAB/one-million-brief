@@ -32,7 +32,8 @@ exports.participRegister = async(req, res, next) => {
         is_valid : false,
         online : false,
         phone : req.body.phone,
-        password : hashedPassword
+        password : hashedPassword,
+        score : 0
     })
 
     try {
@@ -75,7 +76,7 @@ exports.participValidation = async (req,res) => {
         sendMail(updatedParticipant.email)
         // sendSms(updatedParticipant.phone)
         res.json(updatedParticipant)
-        
+
 
     } catch (error) {
         res.status(400).json({message : error.message})

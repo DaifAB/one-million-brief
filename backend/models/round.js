@@ -12,10 +12,6 @@ const roundSchema = new mongoose.Schema({
   id_question_token: {
     type: mongoose.Types.ObjectId,
     ref: "questiontokens",
-  },
-  score : {
-    type : Number,
-    required : true
   }
 });
 

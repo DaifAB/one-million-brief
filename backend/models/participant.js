@@ -29,6 +29,9 @@ const participantSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  score: {
+    type: Number
+  }
 });
 
 module.exports = mongoose.model("Participant", participantSchema);
