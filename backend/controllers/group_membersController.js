@@ -34,7 +34,7 @@ exports.getGroupByCode = async (req,res) => {
         var bestScore = Math.max.apply(Math,group_participants.map(function(participant){return participant.score;}))
         var finalWinner = group_participants.find(function(o){ return o.score == bestScore; })
 
-        res.json([inalWinner,{message: "Congrtaz, your are a millionnaire"}])
+        res.json([finalWinner,{message : "Congratz, you are a millionaire !!!!!!!!!!"}])
 
     } catch (error) {
         res.status(500).send({message : error.message})
@@ -76,6 +76,8 @@ exports.joinGroup = async (req,res) => {
 
             //CHECKING GROUP CAPACITY
             Group.countDocuments({group_code : group_code}, async (err,c)=>{
+                //CHECKING IF PLAYER IS ALREADY IN THE GROUP
+            if (await Group.findOne({id_participant : id_participant})) return res.status(400).send("You are already in the game")
             if (c<4) {
                 const group = new Group({
                     id_participant : id_participant,
