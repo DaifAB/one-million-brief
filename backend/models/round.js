@@ -13,6 +13,10 @@ const roundSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: "questiontokens",
   },
+  score : {
+    type : Number,
+    required : true
+  }
 });
 
 module.exports = mongoose.model("Round", roundSchema);

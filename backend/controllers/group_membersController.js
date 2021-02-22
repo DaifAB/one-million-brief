@@ -1,4 +1,3 @@
-const { findOne } = require('../models/group_members')
 const Group = require('../models/group_members')
 const Participant = require('../models/participant')
 
@@ -56,7 +55,7 @@ exports.joinGroup = async (req,res) => {
                     const newGroup = await group.save()
 
                     Group.countDocuments({group_code : group_code}, async (err,c)=>{
-                        if(c == 4) {res.send('Game started get your question')}
+                        if(c == 4) {res.send('Game started get your question /question/randomQuestion')}
                         else {res.send("waiting for other players")}
 
 

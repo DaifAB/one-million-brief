@@ -14,6 +14,7 @@ app.use('/participant', require('./routes/participant'))
 app.use('/admin', require('./routes/admin'))
 app.use('/question', require('./routes/question'))
 app.use('/group', require('./routes/group_members'))
+app.use('/questionToken', require('./routes/question_token'))
 
 
 app.listen(PORT, () => {console.log(`Server running on port ${PORT}`);})
