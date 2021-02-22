@@ -10,6 +10,37 @@ exports.getAllGroups = async (req,res) => {
     }
 }
 
+exports.getGroupByCode = async (req,res) => {
+    var group_participants = []
+
+    try {
+        const groups = await Group.aggregate([
+            {
+                $match : {group_code :req.body.group_code}
+            },
+            { $lookup:
+               {
+                 from: 'participants',
+                 localField: 'id_participant',
+                 foreignField: '_id',
+                 as: 'participant'
+               }
+             }
+            ])
+        groups.map(object => {
+            group_participants.push(object.participant[0])
+        })
+
+        var bestScore = Math.max.apply(Math,group_participants.map(function(participant){return participant.score;}))
+        var finalWinner = group_participants.find(function(o){ return o.score == bestScore; })
+
+        res.json([inalWinner,{message: "Congrtaz, your are a millionnaire"}])
+
+    } catch (error) {
+        res.status(500).send({message : error.message})
+    }
+}
+
 exports.addGroup = async (req,res) => {
 
     const id_participant =  req.body.id_participant
