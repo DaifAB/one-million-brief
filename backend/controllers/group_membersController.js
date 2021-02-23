@@ -52,9 +52,12 @@ exports.addGroup = async (req,res) => {
             id_participant : participant._id,
             group_code : Math.floor(1000 + Math.random() * 9000)
         })
+        
 
         try {
             const newGroup = await group.save()
+            participant.score = 0
+            participant.save()
             res.status(201).json(newGroup)
         } catch (error) {
             res.status(500).send({message : error.message})
@@ -86,6 +89,8 @@ exports.joinGroup = async (req,res) => {
 
                 try {
                     const newGroup = await group.save()
+                    participant.score = 0
+                    participant.save()
 
                     Group.countDocuments({group_code : group_code}, async (err,c)=>{
                         if(c == 4) {res.send('Game started get your question /question/randomQuestion')}

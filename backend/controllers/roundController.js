@@ -1,3 +1,4 @@
+const group_members = require('../models/group_members')
 const Round = require('../models/round')
 
 exports.addRound = async (req,res) => {
@@ -16,4 +17,29 @@ exports.addRound = async (req,res) => {
         res.status(500).send({message : error.message})
         
     }
+}
+
+
+exports.getRoundsCount = async (group_code) => {
+    var i = 0
+    const rounds = await Round.aggregate([
+
+        {
+            $lookup:
+           {
+             from: 'groupmembers',
+             localField: 'id_group_members',
+             foreignField: '_id',
+             as: 'group_members'
+           }
+         }
+        ])
+
+        rounds.map((group) => {
+
+            if(group.group_members[0].group_code == group_code) i++
+        })
+
+        return i;
+
 }

@@ -1,4 +1,5 @@
 const Question = require("../models/question.js")
+const Round = require("../models/round")
 
 exports.questionAdd = async (req,res) =>{
 
@@ -32,8 +33,18 @@ exports.getRandomQuestion = async (req,res) => {
         Question.countDocuments((err,count) =>{
             var random = Math.floor(Math.random() * count)
 
-            Question.findOne().skip(random).exec((err,result) =>{
+            Question.findOne().skip(random).exec(async (err,result) =>{
+               const checkQuest =  await Round.findOne({id_question : result._id, is_answered : true})
+                
+               if (checkQuest) {
+
+                res.send("Question has been already answered. pick up another one !")
+                   
+               } else {
                 res.json([result,{message : "/questionToken/add to submit your answer"}])
+               }
+
+               
             })
         })
     } catch (error) {
