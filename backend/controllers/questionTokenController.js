@@ -11,20 +11,21 @@ exports.addQuestionToken = async (req,res) => {
     var id_question = req.body.id_question
     var id_participant = req.body.id_participant
     var participant_answer = req.body.participant_answer
+    var grp_code = req.body.group_code
 
-    console.log(id_participant);
+   
     
 
     const questionExist = await Round.findOne({id_question : id_question, is_answered : true})
     if (questionExist) return res.status(400).send("Too late")
 
-    const group_members = await Group.findOne({id_participant : id_participant})
-    const grp_code = group_members.group_code
+    const group_members = await Group.findOne({group_code : grp_code})
+    
     const question = await Question.findById(id_question)
     const participant = await Participant.findById(id_participant)
     const roundsCount = await getRoundsCount(grp_code)
 
-    if (roundsCount == 2) {
+    if (roundsCount == 14) {
         await Round.updateMany(
             { $set: { is_answered: false } }
           );

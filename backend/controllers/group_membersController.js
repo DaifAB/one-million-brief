@@ -80,7 +80,7 @@ exports.joinGroup = async (req,res) => {
             //CHECKING GROUP CAPACITY
             Group.countDocuments({group_code : group_code}, async (err,c)=>{
                 //CHECKING IF PLAYER IS ALREADY IN THE GROUP
-            if (await Group.findOne({id_participant : id_participant})) return res.status(400).send("You are already in the game")
+            if (await Group.findOne({id_participant : id_participant, group_code : group_code})) return res.status(400).send("You are already in the game")
             if (c<4) {
                 const group = new Group({
                     id_participant : id_participant,

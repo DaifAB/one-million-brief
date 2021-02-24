@@ -8,13 +8,34 @@ const {
   adminRegisterSchema
 } = require("./validation/validationSchema");
 
+const log= require('./logs/log')
+const logs =require("../models/logs")
+
 
 exports.getAllAdmins = async (req, res) => {
   try {
     const admins = await Admin.find();
     res.json(admins);
+    log(
+      {
+        file: "adminController.js",
+        line: "18",
+        info: "get all admins",
+        type: "INFO",
+      },
+      logs
+    );
   } catch (error) {
     res.status(500).json({ message: error.message });
+    log(
+      {
+        file: "adminController.js",
+        line: "29",
+        info: error.message,
+        type: "Critical",
+      },
+      logs
+    );
   }
 };
 exports.loginAdmin = async (req, res) => {
@@ -53,16 +74,52 @@ exports.addAdmin = async (req, res) => {
   try {
     const newAdmin = await admin.save();
     res.status(200).json(newAdmin);
+    log(
+      {
+        file: "adminController.js",
+        line: "76",
+        info: "add new admin",
+        type: "INFO",
+      },
+      logs
+    );
   } catch (error) {
     res.status(500).json({ message: error.message });
+    log(
+      {
+        file: "adminController.js",
+        line: "87",
+        info: error.message,
+        type: "INFO",
+      },
+      logs
+    );
   }
 };
 exports.getOneAdmin = async (req, res) => {
   try {
     admin = await Admin.findById(req.params.id);
     admin === null ? res.status(404).json(admin) : res.status(200).send(admin);
+    log(
+      {
+        file: "adminController.js",
+        line: "102",
+        info: "get one admin ",
+        type: "INFO",
+      },
+      logs
+    );
   } catch (error) {
     res.status(500).json({ message: error.message });
+    log(
+      {
+        file: "adminController.js",
+        line: "113",
+        info: error.message,
+        type: "Critical",
+      },
+      logs
+    );
   }
 };
 
