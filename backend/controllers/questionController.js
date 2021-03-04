@@ -51,3 +51,12 @@ exports.getRandomQuestion = async (req,res) => {
         res.status(500).send({message : error.message})
     }
 }
+
+exports.getQuestions = async (req,res) => {
+    try {
+        questions = await Question.find().limit(15)
+        res.json(questions)
+    } catch (error) {
+        res.status(500).send({message : error.message})
+    }
+}

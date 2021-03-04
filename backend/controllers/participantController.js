@@ -10,6 +10,14 @@ const {
 
 const{sendMail,sendSms} = require('./sendNotif/sendNotif')
 
+exports.getAllParticipants = async (req, res) =>{
+    try {
+        const participants = await Participant.find()
+        res.json(participants)
+    } catch (error) {
+        res.status(500).send({message : error.message})
+    }
+}
 exports.participRegister = async(req, res, next) => {
 
     //VALIDATE DATA BEFORE SAVE PARTICIPANT

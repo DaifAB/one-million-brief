@@ -1,9 +1,19 @@
 require('dotenv').config()
 
+
 const express = require('express')
 const app = express()
 const PORT = process.env.PORT || 3000
 const db =require("./config/config");
+
+
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PATCH, POST, OPTIONS, PUT, DELETE");
+    next();
+  });
 
 
 app.use(express.json())

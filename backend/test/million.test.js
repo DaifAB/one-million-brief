@@ -8,6 +8,8 @@ beforeAll(async () => {
   await mongoose.connect(url, { useNewUrlParser: true });
 });
 
+
+
 it("Should save participant to database", async (done) => {
   const res = await request.post("/participant/register").send({
     full_name: "testtestest",
