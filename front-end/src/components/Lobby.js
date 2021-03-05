@@ -32,7 +32,7 @@ export default function Lobby() {
     setInterval( fetchData,2000)
    }, [group_code,data.length])
 
-  if (data.length === 1) {
+  if (data.length === 4) {
      return <Redirect to={{
         pathname: '/Game',
         state: { code: group_code }
