@@ -4,6 +4,7 @@ import {
     useLocation
   } from "react-router-dom";
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
   function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -21,7 +22,7 @@ export default function Winner() {
 
     useEffect(() => {
         async function getWinner(){
-            await axios.post('http://localhost:5000/group/finalWinner',{
+            await axios.post(process.env.REACT_APP_API_URL+'/group/finalWinner',{
                 group_code : group_code
             }).then(response => {
                 setWinner(response.data)
@@ -34,12 +35,16 @@ export default function Winner() {
 
 
     return (
+        <Link to='/Group' style={{textDecoration: 'none', color : 'black'}}>
         <div className="winner-container">
             <h1>Congratulations ! You are the MILLIONAIRE !</h1>
             <div className="winner-cards">
                 <img alt="" src={user} />
                 <h3>{winner.full_name}</h3>
             </div>
+
+            <h3>Click anywhere to return to home</h3>
         </div>
+        </Link>
     )
 }

@@ -53,7 +53,7 @@ export default function Admin() {
     const [phone, setPhone] = useState("")
     const [password, setPassword] = useState("")
   const onClick = () =>{
-    axios.post('http://localhost:5000/admin/login',{
+    axios.post(process.env.REACT_APP_API_URL+'/admin/login',{
         phone : phone,
         password : password
     })

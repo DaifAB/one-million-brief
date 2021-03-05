@@ -16,7 +16,7 @@ function Table() {
   const validatePArticipant = (id) => {
     const token = localStorage.getItem("token");
     axios
-      .patch("http://localhost:5000/participant/validateParticipant/" + id,
+      .patch(process.env.REACT_APP_API_URL+'/participant/validateParticipant/' + id,
         {
             is_valid: true,
         },
@@ -37,7 +37,7 @@ function Table() {
   //featch alla participant
   useEffect(() => {
     const token = localStorage.getItem("token");
-    axios.get("http://localhost:5000/participant/getAll", {
+    axios.get(process.env.REACT_APP_API_URL+'/participant/getAll', {
       headers: {
         "auth-token": `${token}`,
       },

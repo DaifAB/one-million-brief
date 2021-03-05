@@ -19,7 +19,7 @@ export default function Admins() {
     const {register,handleSubmit} = useForm()
     const onSubmit = (data) =>{
         const token = localStorage.getItem('token');
-        axios.post('http://localhost:5000/admin/add',{
+        axios.post(process.env.REACT_APP_API_URL+'/admin/add',{
             full_name : data.full_name,
             phone : data.phone,
             password : data.password

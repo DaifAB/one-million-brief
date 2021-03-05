@@ -31,8 +31,10 @@ export default function GameChild(props) {
 
                 if(nextQuestion<questions.length){
                 setCurrentQuestion(nextQuestion)
+                console.log(nextQuestion);
+                console.log(currentQuestion);
                 var particip_answer = e.target.textContent
-                axios.post('http://localhost:5000/questionToken/add',{
+                axios.post(process.env.REACT_APP_API_URL+'/questionToken/add',{
                     id_question : questions[currentQuestion]._id,
                     participant_answer : particip_answer,
                     group_code : code
@@ -58,6 +60,31 @@ export default function GameChild(props) {
                       });
                 })
             }else{
+                axios.post(process.env.REACT_APP_API_URL+'/questionToken/add',{
+                    id_question : questions[currentQuestion]._id,
+                    participant_answer : particip_answer,
+                    group_code : code
+                },{
+                    headers:{
+                        "auth-token": token
+                      }
+                }).then(response => {
+                    console.log(response);
+                }).catch(error =>{
+                    store.addNotification({
+                        title: "Error !",
+                        message: error.response.data,
+                        type: "danger",
+                        insert: "top",
+                        container: "bottom-right",
+                        animationIn: ["animate__animated", "animate__fadeIn"],
+                        animationOut: ["animate__animated", "animate__fadeOut"],
+                        dismiss: {
+                          duration: 5000,
+                          onScreen: true
+                        }
+                      });
+                })
                 history.push('/Winner?code='+code)
             }
             }

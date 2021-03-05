@@ -33,7 +33,7 @@ export default function JoinGrp() {
     const onClick = () =>{
       console.log(name);
       const token = localStorage.getItem('token');
-      axios.post('http://localhost:5000/group/join',{
+      axios.post(process.env.REACT_APP_API_URL+'/group/join',{
         group_code: name
       },{
           headers:{

@@ -8,7 +8,7 @@ export default function CreateGrp() {
   let history = useHistory();
     const onClick = () =>{
         const token = localStorage.getItem('token');
-        axios.post('http://localhost:5000/group/add',{},{
+        axios.post(process.env.REACT_APP_API_URL+'/group/add',{},{
             headers:{
                 "auth-token": token
               }

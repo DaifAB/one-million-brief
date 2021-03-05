@@ -38,7 +38,7 @@ export default function Login() {
   let history = useHistory();
 
     const onSubmit = (data) =>{
-        axios.post('http://localhost:5000/participant/login',{
+        axios.post(process.env.REACT_APP_API_URL+'/participant/login',{
             phone : data.phone,
             password : data.password
         })

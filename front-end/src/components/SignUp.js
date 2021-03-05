@@ -41,7 +41,7 @@ export default function SignUp() {
 
     const onSubmit = (data) =>{
         console.log(data);
-        axios.post('http://localhost:5000/participant/register',{
+        axios.post(process.env.REACT_APP_API_URL+'/participant/register',{
             full_name : data.full_name,
             age : data.age,
             email : data.email,

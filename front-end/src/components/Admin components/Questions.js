@@ -25,7 +25,7 @@ export default function Questions() {
         answers.push(data.choice3)
         answers.push(data.answer)
         const token = localStorage.getItem('token');
-        axios.post('http://localhost:5000/question/add',{
+        axios.post(process.env.REACT_APP_API_URL+'/question/add',{
             quest : data.question ,
             answer : data.answer,
             false_choices : answers,

@@ -11,7 +11,7 @@ export default function Game(props) {
             }, [])
 
             function fetchData() {
-                axios.get('http://localhost:5000/question/getQuestions')
+                axios.get(process.env.REACT_APP_API_URL+'/question/getQuestions')
                .then(response =>{
                    const allQuestions = response.data
                    setQuestions(allQuestions)

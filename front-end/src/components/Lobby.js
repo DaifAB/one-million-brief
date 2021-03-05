@@ -17,10 +17,9 @@ export default function Lobby() {
     let query = useQuery();
     const group_code = parseInt(query.get("code"))
 
-   const url = 'http://localhost:5000/group/getGroup'
    useEffect(() => {
     async function fetchData() {
-        await axios.post(url,{
+        await axios.post(process.env.REACT_APP_API_URL+'/group/getGroup',{
             group_code : group_code
         }).then(res=>{
            setData(res.data)
@@ -33,7 +32,7 @@ export default function Lobby() {
     setInterval( fetchData,2000)
    }, [group_code,data.length])
 
-  if (data.length === 2) {
+  if (data.length === 1) {
      return <Redirect to={{
         pathname: '/Game',
         state: { code: group_code }
